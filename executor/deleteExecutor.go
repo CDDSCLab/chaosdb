@@ -7,12 +7,13 @@ import (
 	"github.com/pingcap/parser/ast"
 	"github.com/pingcap/parser/opcode"
 
-	"chaosdb/common/tableOpt"
-	"chaosdb/opt/common"
-	"chaosdb/table"
-	"chaosdb/util/codekey"
 	"strconv"
 	"strings"
+
+	"github.com/CDDSCLab/chaosdb/common/tableOpt"
+	"github.com/CDDSCLab/chaosdb/opt/common"
+	"github.com/CDDSCLab/chaosdb/table"
+	"github.com/CDDSCLab/chaosdb/util/codekey"
 )
 
 type DeleteExecutor struct {

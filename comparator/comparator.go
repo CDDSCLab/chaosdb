@@ -2,9 +2,10 @@ package comparator
 
 import (
 	"bytes"
-	"chaosdb/opt/common"
-	"chaosdb/util/stringutil"
 	"strconv"
+
+	"github.com/CDDSCLab/chaosdb/opt/common"
+	"github.com/CDDSCLab/chaosdb/util/stringutil"
 )
 
 //自己定义的比较器

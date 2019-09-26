@@ -1,8 +1,8 @@
 package tableOpt
 
 import (
-	"chaosdb/common/kv"
-	"chaosdb/table"
+	"github.com/CDDSCLab/chaosdb/common/kv"
+	"github.com/CDDSCLab/chaosdb/table"
 )
 
 type TableOpt interface {

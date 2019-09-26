@@ -7,9 +7,10 @@ import (
 	"github.com/pingcap/parser/opcode"
 	"github.com/pkg/errors"
 
-	"chaosdb/common/tableOpt"
-	"chaosdb/table"
 	"strings"
+
+	"github.com/CDDSCLab/chaosdb/common/tableOpt"
+	"github.com/CDDSCLab/chaosdb/table"
 )
 
 type SelectExecutor struct {

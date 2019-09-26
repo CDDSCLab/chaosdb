@@ -1,10 +1,11 @@
 package executor
 
 import (
-	"chaosdb/common/tableOpt"
-	"chaosdb/table"
 	"errors"
 	"fmt"
+
+	"github.com/CDDSCLab/chaosdb/common/tableOpt"
+	"github.com/CDDSCLab/chaosdb/table"
 
 	"github.com/pingcap/parser/ast"
 )

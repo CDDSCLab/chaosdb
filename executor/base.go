@@ -1,15 +1,16 @@
 package executor
 
 import (
-	"chaosdb/common/kv"
-	"chaosdb/common/tableOpt"
-	"chaosdb/opt/common"
-	"chaosdb/table"
-	"chaosdb/util/codekey"
 	"errors"
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/CDDSCLab/chaosdb/common/kv"
+	"github.com/CDDSCLab/chaosdb/common/tableOpt"
+	"github.com/CDDSCLab/chaosdb/opt/common"
+	"github.com/CDDSCLab/chaosdb/table"
+	"github.com/CDDSCLab/chaosdb/util/codekey"
 
 	jsoniter "github.com/json-iterator/go"
 	"github.com/op/go-logging"

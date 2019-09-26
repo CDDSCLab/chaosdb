@@ -1,4 +1,4 @@
-module chaosdb
+module github.com/CDDSCLab/chaosdb
 
 go 1.13
 

@@ -2,14 +2,15 @@ package leveldb
 
 import (
 	"bytes"
-	"chaosdb/common/kv"
-	"chaosdb/comparator"
-	"chaosdb/store/common"
-	"chaosdb/table"
-	"chaosdb/util/stringutil"
 	"errors"
 	"strings"
 	"sync"
+
+	"github.com/CDDSCLab/chaosdb/common/kv"
+	"github.com/CDDSCLab/chaosdb/comparator"
+	"github.com/CDDSCLab/chaosdb/store/common"
+	"github.com/CDDSCLab/chaosdb/table"
+	"github.com/CDDSCLab/chaosdb/util/stringutil"
 
 	jsoniter "github.com/json-iterator/go"
 	"github.com/op/go-logging"
