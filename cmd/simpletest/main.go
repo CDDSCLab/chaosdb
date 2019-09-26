@@ -1,10 +1,12 @@
 package main
 
 import (
-	"chaosdb/executor"
-	"chaosdb/octopus"
-	"chaosdb/table"
 	"fmt"
+
+	"github.com/CDDSCLab/chaosdb/octopus"
+	"github.com/CDDSCLab/chaosdb/table"
+
+	"github.com/CDDSCLab/chaosdb/executor"
 )
 
 func main() {

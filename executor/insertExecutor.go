@@ -7,10 +7,11 @@ import (
 	"github.com/pingcap/parser/ast"
 	"github.com/pingcap/tidb/types"
 
-	"chaosdb/common/tableOpt"
-	"chaosdb/table"
 	"strconv"
 	"sync"
+
+	"github.com/CDDSCLab/chaosdb/common/tableOpt"
+	"github.com/CDDSCLab/chaosdb/table"
 )
 
 type InsertExecutor struct {

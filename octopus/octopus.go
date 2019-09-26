@@ -1,15 +1,16 @@
 package octopus
 
 import (
-	"chaosdb/common/kv"
-	"chaosdb/common/tableOpt"
-	"chaosdb/executor"
-	"chaosdb/opt/levelDB"
-	"chaosdb/store/leveldb"
 	"errors"
 	"fmt"
 	"strings"
 	"sync"
+
+	"github.com/CDDSCLab/chaosdb/common/kv"
+	"github.com/CDDSCLab/chaosdb/common/tableOpt"
+	"github.com/CDDSCLab/chaosdb/executor"
+	"github.com/CDDSCLab/chaosdb/opt/levelDB"
+	"github.com/CDDSCLab/chaosdb/store/leveldb"
 
 	"github.com/op/go-logging"
 	"github.com/pingcap/parser"

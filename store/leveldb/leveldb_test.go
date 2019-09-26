@@ -1,10 +1,11 @@
 package leveldb
 
 import (
-	"chaosdb/common/kv"
-	"chaosdb/store/common"
 	"fmt"
 	"testing"
+
+	"github.com/CDDSCLab/chaosdb/common/kv"
+	"github.com/CDDSCLab/chaosdb/store/common"
 
 	jsoniter "github.com/json-iterator/go"
 	"github.com/pingcap/tidb/model"
