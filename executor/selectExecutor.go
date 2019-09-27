@@ -6,6 +6,7 @@ import (
 	"github.com/pingcap/parser/ast"
 	"github.com/pingcap/parser/opcode"
 	"github.com/pkg/errors"
+	"github.com/pingcap/tidb/types/parser_driver"
 
 	"strings"
 
@@ -62,8 +63,8 @@ func (se *SelectExecutor) Query(selectStmtNode *ast.SelectStmt) (*QueryResult, e
 	//limit获取
 	limit := &table.Limit{}
 	if selectStmtNode.Limit != nil {
-		limit.Offset = selectStmtNode.Limit.Offset.GetDatum().GetUint64()
-		limit.Count = selectStmtNode.Limit.Count.GetDatum().GetUint64()
+		limit.Offset = selectStmtNode.Limit.Offset.(*driver.ValueExpr).Datum.GetUint64()
+		limit.Count = selectStmtNode.Limit.Count.(*driver.ValueExpr).Datum.GetUint64()
 	}
 	se.limit = limit
 
@@ -81,7 +82,7 @@ func (se *SelectExecutor) Query(selectStmtNode *ast.SelectStmt) (*QueryResult, e
 		where.Opt = operationExpr.Op
 		where.LeftColumn = operationExpr.L.(*ast.ColumnNameExpr).Name.String()
 		where.RightType = operationExpr.R.GetType()
-		where.RightValue = operationExpr.R.GetDatum()
+		where.RightValue = &operationExpr.R.(*driver.ValueExpr).Datum
 		se.where = where
 	} else {
 		errStr := fmt.Sprintf("no support %s where operator", operationExpr.Op.String())

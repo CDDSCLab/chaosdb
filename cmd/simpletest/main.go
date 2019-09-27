@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-
+	fmt.Printf("--开始-----")
 	octoHandler := octopus.NewOctopus()
 	fmt.Println(octoHandler)
 	fmt.Printf("---实例化句柄---")

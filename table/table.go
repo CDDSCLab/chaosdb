@@ -7,6 +7,7 @@ import (
 
 	"github.com/pingcap/parser/ast"
 	"github.com/pingcap/parser/opcode"
+	field_types "github.com/pingcap/parser/types"
 	"github.com/pingcap/tidb/types"
 )
 
@@ -22,7 +23,7 @@ type Rows []*Row
 type Where struct {
 	Opt        opcode.Op        //操作符
 	LeftColumn string           //条件字段
-	RightType  *types.FieldType //右值字段类型
+	RightType  *field_types.FieldType //右值字段类型
 	RightValue *types.Datum     //右值
 }
 
@@ -36,7 +37,7 @@ type Limit struct {
 type Column struct {
 	Idx       uint64           `json:"idx"`        //列的唯一id
 	Name      string           `json:"name"`       //列名称
-	MysqlType *types.FieldType `json:"mysql_type"` //列type属性
+	MysqlType *field_types.FieldType `json:"mysql_type"` //列type属性
 }
 
 //表结构

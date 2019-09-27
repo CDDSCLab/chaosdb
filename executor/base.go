@@ -67,7 +67,7 @@ func (be *BaseExecutor) getQueryResultWithWhere(selectFiled []string, where *tab
 	case opcode.EQ:
 		//主键-单点
 		if isPrimaryColumn {
-			if !types.IsTypeFloat(where.RightType.Tp) {
+			if !types.IsTypeNumeric(where.RightType.Tp) {
 				errStr := fmt.Sprintf("The where of primary field(%s) must be a numeric type", where.LeftColumn)
 				return nil, errors.New(errStr)
 			}
@@ -86,7 +86,7 @@ func (be *BaseExecutor) getQueryResultWithWhere(selectFiled []string, where *tab
 			//唯一索引 单点
 		} else if isUniqColumn {
 			var rightValue string
-			if types.IsTypeFloat(where.RightType.Tp) {
+			if types.IsTypeNumeric(where.RightType.Tp) {
 				rightValue = strconv.FormatInt(where.RightValue.GetInt64(), 10)
 			} else if types.IsTypeChar(where.RightType.Tp) {
 				rightValue = where.RightValue.GetString()
@@ -114,7 +114,7 @@ func (be *BaseExecutor) getQueryResultWithWhere(selectFiled []string, where *tab
 		} else if isIndexColumn {
 			var rightValue string
 			//取出条件右值
-			if types.IsTypeFloat(where.RightType.Tp) {
+			if types.IsTypeNumeric(where.RightType.Tp) {
 				rightValue = strconv.FormatInt(where.RightValue.GetInt64(), 10)
 
 			} else if types.IsTypeChar(where.RightType.Tp) {
@@ -154,7 +154,7 @@ func (be *BaseExecutor) getQueryResultWithWhere(selectFiled []string, where *tab
 		}
 	case opcode.GT:
 		//右值必须是是数字
-		if !types.IsTypeFloat(where.RightType.Tp) {
+		if !types.IsTypeNumeric(where.RightType.Tp) {
 			errStr := fmt.Sprint("The where of '>','<' condition must be a  numeric type")
 			return nil, errors.New(errStr)
 		}
@@ -225,7 +225,7 @@ func (be *BaseExecutor) getQueryResultWithWhere(selectFiled []string, where *tab
 			}
 		}
 	case opcode.LT:
-		if !types.IsTypeFloat(where.RightType.Tp) {
+		if !types.IsTypeNumeric(where.RightType.Tp) {
 			errStr := fmt.Sprint("The where of '>','<' condition must be a  numeric type")
 			return nil, errors.New(errStr)
 		}
