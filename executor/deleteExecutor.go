@@ -6,6 +6,7 @@ import (
 
 	"github.com/pingcap/parser/ast"
 	"github.com/pingcap/parser/opcode"
+	"github.com/pingcap/tidb/types/parser_driver"
 
 	"strconv"
 	"strings"
@@ -38,8 +39,7 @@ func (de *DeleteExecutor) Exec(deleteStmtNode *ast.DeleteStmt) error {
 	//limit获取
 	limit := &table.Limit{}
 	if deleteStmtNode.Limit != nil {
-		limit.Offset = deleteStmtNode.Limit.Offset.GetDatum().GetUint64()
-		limit.Count = deleteStmtNode.Limit.Count.GetDatum().GetUint64()
+		limit.Offset = deleteStmtNode.Limit.Offset.(*driver.ValueExpr).Datum.GetUint64()
 	}
 	de.limit = limit
 
@@ -58,7 +58,9 @@ func (de *DeleteExecutor) Exec(deleteStmtNode *ast.DeleteStmt) error {
 		where.Opt = operationExpr.Op
 		where.LeftColumn = operationExpr.L.(*ast.ColumnNameExpr).Name.String()
 		where.RightType = operationExpr.R.GetType()
-		where.RightValue = operationExpr.R.GetDatum()
+		where.RightValue = &operationExpr.R.(*driver.ValueExpr).Datum
+	
+
 		de.where = where
 	} else {
 		errStr := fmt.Sprintf("no support %s where operator", operationExpr.Op.String())

@@ -6,7 +6,7 @@ import (
 
 	"github.com/pingcap/parser/ast"
 	"github.com/pingcap/tidb/types"
-
+	"github.com/pingcap/tidb/types/parser_driver"
 	"strconv"
 	"sync"
 
@@ -74,9 +74,10 @@ func (ie *InsertExecutor) Exec(insertStmtNode *ast.InsertStmt) error {
 					var priId uint64
 
 					if types.IsTypeNumeric(ie.TableInfo.PriKey.MysqlType.Tp) {
-						priId = val.GetDatum().GetUint64()
+						priId = val.(*driver.ValueExpr).Datum.GetUint64()
+					
 					} else {
-						priId, err = strconv.ParseUint(val.GetDatum().GetString(), 10, 64)
+						priId, err = strconv.ParseUint(val.(*driver.ValueExpr).Datum.GetString(), 10, 64)
 					}
 
 					if err != nil {
@@ -94,7 +95,7 @@ func (ie *InsertExecutor) Exec(insertStmtNode *ast.InsertStmt) error {
 
 				} else {
 					//其他字段处理
-					row.ColumnValue[ie.TableInfo.Columns[j].Name] = val.GetDatum().GetString()
+					row.ColumnValue[ie.TableInfo.Columns[j].Name] = val.(*driver.ValueExpr).Datum.GetString()
 				}
 
 			}
@@ -118,7 +119,7 @@ func (ie *InsertExecutor) Exec(insertStmtNode *ast.InsertStmt) error {
 			for j, val := range list {
 				if insertStmtNode.Columns[j].Name.L == ie.TableInfo.PriKey.Name {
 
-					priId, err := strconv.ParseUint(val.GetDatum().GetString(), 10, 64)
+					priId, err := strconv.ParseUint(val.(*driver.ValueExpr).Datum.GetString(), 10, 64)
 					if err != nil {
 						errStr := fmt.Sprint("conv primaryKey to int error")
 						return errors.New(errStr)
@@ -133,7 +134,7 @@ func (ie *InsertExecutor) Exec(insertStmtNode *ast.InsertStmt) error {
 					ie.TableInfoIds.AutoIncId = priId + 1
 
 				} else {
-					row.ColumnValue[insertStmtNode.Columns[j].Name.L] = val.GetDatum().GetString()
+					row.ColumnValue[insertStmtNode.Columns[j].Name.L] = val.(*driver.ValueExpr).Datum.GetString()
 				}
 
 			}

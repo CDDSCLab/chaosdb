@@ -7,7 +7,7 @@ import (
 	"github.com/CDDSCLab/chaosdb/common/kv"
 	"github.com/CDDSCLab/chaosdb/common/tableOpt"
 	"github.com/CDDSCLab/chaosdb/opt/common"
-	"github.com/CDDSCLab/chaosdb/store/common"
+	common2	"github.com/CDDSCLab/chaosdb/store/common"
 	"github.com/CDDSCLab/chaosdb/store/leveldb"
 	"github.com/CDDSCLab/chaosdb/table"
 	"github.com/CDDSCLab/chaosdb/util/codekey"

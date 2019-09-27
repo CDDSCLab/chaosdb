@@ -5,8 +5,10 @@ import (
 
 	"github.com/pingcap/parser/ast"
 	"github.com/pingcap/parser/opcode"
-	"github.com/pingcap/tidb/types"
+	field_types "github.com/pingcap/parser/types"
 	"github.com/pkg/errors"
+	"github.com/pingcap/tidb/types"
+	"github.com/pingcap/tidb/types/parser_driver"
 
 	"strconv"
 	"strings"
@@ -19,7 +21,7 @@ import (
 
 type Assign struct {
 	ColumnName string
-	AssignType *types.FieldType
+	AssignType *field_types.FieldType
 	AssignVale *types.Datum
 	IsIndex    bool
 	IsUnique   bool
@@ -56,8 +58,8 @@ func (ue *UpdateExecutor) Exec(updateStmtNode *ast.UpdateStmt) error {
 	//limit获取
 	limit := &table.Limit{}
 	if updateStmtNode.Limit != nil {
-		limit.Offset = updateStmtNode.Limit.Offset.GetDatum().GetUint64()
-		limit.Count = updateStmtNode.Limit.Count.GetDatum().GetUint64()
+		limit.Offset = updateStmtNode.Limit.Offset.(*driver.ValueExpr).Datum.GetUint64()
+		limit.Count = updateStmtNode.Limit.Count.(*driver.ValueExpr).Datum.GetUint64()
 	}
 	ue.limit = limit
 
@@ -80,7 +82,7 @@ func (ue *UpdateExecutor) Exec(updateStmtNode *ast.UpdateStmt) error {
 		}
 		assign.ColumnName = assignment.Column.Name.L
 		assign.AssignType = assignment.Expr.GetType()
-		assign.AssignVale = assignment.Expr.GetDatum()
+		assign.AssignVale = &assignment.Expr.(*driver.ValueExpr).Datum
 		ue.lists = append(ue.lists, assign)
 	}
 
@@ -92,7 +94,7 @@ func (ue *UpdateExecutor) Exec(updateStmtNode *ast.UpdateStmt) error {
 		where.Opt = operationExpr.Op
 		where.LeftColumn = operationExpr.L.(*ast.ColumnNameExpr).Name.String()
 		where.RightType = operationExpr.R.GetType()
-		where.RightValue = operationExpr.R.GetDatum()
+		where.RightValue = &operationExpr.R.(*driver.ValueExpr).Datum
 		ue.where = where
 	} else {
 		errStr := fmt.Sprintf("no support %s where operator", operationExpr.Op.String())
