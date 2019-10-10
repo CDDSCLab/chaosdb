@@ -1,9 +1,9 @@
 .PHONY: all
 
-all: test clean
+all: test cleanup
 
 test:
 	go run ./cmd/simpletest/main.go
 
-clean:
+cleanup:
 	rm -rf ./leveldb
